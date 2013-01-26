@@ -29,6 +29,9 @@
   "scripts": {
     "test": "grunt test"
   },
+  "dependencies": {
+	"snockets": ""
+  },
   "devDependencies": {
     "grunt": "~0.3.17"
   },
