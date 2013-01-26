@@ -29,12 +29,17 @@ module.exports = function(grunt) {
     }
 
     if (fs.existsSync(path.resolve(this.data.src))) {
-      js = snockets.getConcatenation(this.data.src, {async: false});
+      try {
+        js = snockets.getConcatenation(this.data.src, {async: false});
 
-      fs.writeFileSync(path.resolve(this.data.dest), js);
+        fs.writeFileSync(path.resolve(this.data.dest), js);
 
-      grunt.log.write(this.data.src + ' snocket to ' + this.data.dest);
-      return true;
+        grunt.log.write(this.data.src + ' snocket to ' + this.data.dest);
+        return true;
+      } catch (e) {
+        grunt.log.error(e);
+        return false;
+      }
     } else {
       grunt.log.error('Missing File: ' + this.data.src);
       return false;
