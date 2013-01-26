@@ -1,5 +1,6 @@
 var Snockets = require('snockets'),
-    path = require('path');
+	fs = require('fs'),
+  path = require('path');
 
 /*
  * grunt-snockets
@@ -19,7 +20,7 @@ module.exports = function(grunt) {
   // TASKS
   // ==========================================================================
 
-  grunt.registerTask('snockets', 'Building js files with snockets.js.', function() {
+  grunt.registerMultiTask('snockets', 'Building js files with snockets.js.', function() {
     // It doesn't run with empty src and dest parameters.    
     if (typeof this.data.src === 'undefined' ||
         typeof this.data.dest === 'undefined') {
@@ -27,10 +28,10 @@ module.exports = function(grunt) {
       return false;
     }
 
-    if (fs.existsSync(path.resolve(src))) {
-      js = snockets.getConcatenation(src, {async: false});
+    if (fs.existsSync(path.resolve(this.data.src))) {
+      js = snockets.getConcatenation(this.data.src, {async: false});
 
-      fs.writeFileSync(path.resolve(dest), js);
+      fs.writeFileSync(path.resolve(this.data.dest), js);
 
       grunt.log.write(this.data.src + ' snocket to ' + this.data.dest);
       return true;
