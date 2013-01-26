@@ -32,7 +32,7 @@ module.exports = function(grunt) {
 
       fs.writeFileSync(path.resolve(dest), js);
 
-      grunt.log.write(this.data.src + ' snocket to ' this.data.dest);
+      grunt.log.write(this.data.src + ' snocket to ' + this.data.dest);
       return true;
     } else {
       grunt.log.error('Missing File: ' + this.data.src);
