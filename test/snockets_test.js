@@ -17,6 +17,15 @@ exports.snockets = {
     test.equal(actual, expected, 'should describe what the default behavior is.');
 
     test.done();
+  },
+  file2_banner: function(test) {
+    test.expect(1);
+
+    var actual = getNormalizedFile('tmp/file2_banner.js');
+    var expected = getNormalizedFile('test/expected/file2_banner.js');
+    test.equal(actual, expected, 'should describe what the default behavior is.');
+
+    test.done();
   }
 };
 

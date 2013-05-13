@@ -32,6 +32,9 @@ module.exports = function(grunt) {
       try {
         js = snockets.getConcatenation(this.data.src, {async: false});
 
+        if (this.data.banner)
+          js = this.data.banner + '\n' + js;
+
         fs.writeFileSync(path.resolve(this.data.dest), js);
 
         grunt.log.write(this.data.src + ' snocket to ' + this.data.dest);

@@ -6,6 +6,11 @@ module.exports = function(grunt) {
       file2: {
         src: 'test/fixtures/file2.js',
         dest: 'tmp/file2.js'
+      },
+      file2_banner: {
+        src: 'test/fixtures/file2.js',
+        dest: 'tmp/file2_banner.js',
+        banner: '// my awesome banner'
       }
     },
     // Unit tests.
