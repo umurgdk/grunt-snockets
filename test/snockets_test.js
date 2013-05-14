@@ -1,34 +1,31 @@
+'use strict';
+
+// Based on grunt-contrib-concat test
+
 var grunt = require('grunt');
 
-/*
-  ======== A Handy Little Nodeunit Reference ========
-  https://github.com/caolan/nodeunit
+function getNormalizedFile(filepath) {
+  return grunt.util.normalizelf(grunt.file.read(filepath));
+}
 
-  Test methods:
-    test.expect(numAssertions)
-    test.done()
-  Test assertions:
-    test.ok(value, [message])
-    test.equal(actual, expected, [message])
-    test.notEqual(actual, expected, [message])
-    test.deepEqual(actual, expected, [message])
-    test.notDeepEqual(actual, expected, [message])
-    test.strictEqual(actual, expected, [message])
-    test.notStrictEqual(actual, expected, [message])
-    test.throws(block, [error], [message])
-    test.doesNotThrow(block, [error], [message])
-    test.ifError(value)
-*/
-
-exports['snockets'] = {
-  setUp: function(done) {
-    // setup here
-    done();
-  },
-  'helper': function(test) {
+exports.snockets = {
+  file2: function(test) {
     test.expect(1);
-    // tests here
-    test.equal(grunt.helper('snockets'), 'snockets!!!', 'should return the correct value.');
+
+    var actual = getNormalizedFile('tmp/file2.js');
+    var expected = getNormalizedFile('test/expected/file2.js');
+    test.equal(actual, expected, 'should describe what the default behavior is.');
+
+    test.done();
+  },
+  file2_banner: function(test) {
+    test.expect(1);
+
+    var actual = getNormalizedFile('tmp/file2_banner.js');
+    var expected = getNormalizedFile('test/expected/file2_banner.js');
+    test.equal(actual, expected, 'should describe what the default behavior is.');
+
     test.done();
   }
 };
+

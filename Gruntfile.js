@@ -2,8 +2,23 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    test: {
-      files: ['test/**/*.js']
+    snockets: {
+      file2: {
+        src: 'test/fixtures/file2.js',
+        dest: 'tmp/file2.js'
+      },
+      file2_banner: {
+        src: 'test/fixtures/file2.js',
+        dest: 'tmp/file2_banner.js',
+        banner: '// my awesome banner'
+      }
+    },
+    // Unit tests.
+    nodeunit: {
+      tests: ['test/*_test.js']
+    },
+    clean: {
+      tests: ['tmp/*']
     },
     lint: {
       files: ['grunt.js', 'tasks/**/*.js', 'test/**/*.js']
@@ -33,6 +48,12 @@ module.exports = function(grunt) {
 
   // Load local tasks.
   grunt.loadTasks('tasks');
+  grunt.loadNpmTasks('grunt-contrib-nodeunit');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+
+  // Whenever the "test" task is run, first clean the "tmp" dir, then run this
+  // plugin's task(s), then test the result.
+  grunt.registerTask('test', ['clean', 'snockets', 'nodeunit']);
 
   // Default task.
   grunt.registerTask('default', 'lint test');
