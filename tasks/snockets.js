@@ -42,7 +42,8 @@ module.exports = function(grunt) {
 
         fs.writeFileSync(path.resolve(this.data.dest), js);
 
-        grunt.log.write(this.data.src + ' snocket to ' + this.data.dest);
+        grunt.log.writeln('Compiled ' + this.data.src + ' to ' + this.data.dest);
+
         return true;
       } catch (e) {
         grunt.log.error(e);
