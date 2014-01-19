@@ -1,5 +1,7 @@
 # grunt-snockets
 
+## This project is no longer continoued. I don't use snockets anymore and highly recommend to use require.js insted! I no longer see any necassary to use a tool like snockets, sorry :)
+
 [Snockets](https://github.com/TrevorBurnham/snockets) for grunt.js
 
 ## Getting Started
