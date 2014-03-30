@@ -25,33 +25,40 @@ module.exports = function(grunt) {
     };
 
     var snockets = new Snockets(this.snocketsOptions);
-
-    // It doesn't run with empty src and dest parameters.    
-    if (typeof this.data.src === 'undefined' ||
-        typeof this.data.dest === 'undefined') {
-      grunt.log.error('Missing Options: src and dest options necessary');
-      return false;
-    }
-
-    if (fs.existsSync(path.resolve(this.data.src))) {
-      try {
-        js = snockets.getConcatenation(this.data.src, this.snocketsOptions);
-
-        if (this.data.banner)
-          js = this.data.banner + '\n' + js;
-
-        fs.writeFileSync(path.resolve(this.data.dest), js);
-
-        grunt.log.writeln('Compiled ' + this.data.src + ' to ' + this.data.dest);
-
-        return true;
-      } catch (e) {
-        grunt.log.error(e);
+    var processSnocket = function(snocket_data) {
+      // It doesn't run with empty src and dest parameters.
+      if (typeof snocket_data.src === 'undefined' ||
+          typeof snocket_data.dest === 'undefined') {
+        grunt.log.error('Missing Options: src and dest options necessary');
         return false;
       }
+
+      if (fs.existsSync(path.resolve(snocket_data.src))) {
+        try {
+          js = snockets.getConcatenation(snocket_data.src, this.snocketsOptions);
+
+          if (snocket_data.banner)
+            js = snocket_data.banner + '\n' + js;
+
+          fs.writeFileSync(path.resolve(snocket_data.dest), js);
+
+          grunt.log.writeln('Compiled ' + snocket_data.src + ' to ' + snocket_data.dest);
+
+          return true;
+        } catch (e) {
+          grunt.log.error(e);
+          return false;
+        }
+      } else {
+        grunt.log.error('Missing File: ' + snocket_data.src);
+        return false;
+      }
+    };
+
+    if (Array.isArray(this.data)) {
+      this.data.forEach(processSnocket);
     } else {
-      grunt.log.error('Missing File: ' + this.data.src);
-      return false;
+      processSnocket(this.data);
     }
   });
 
